@@ -46,6 +46,12 @@ async function run() {
          res.send(result)
          console.log(result);
        })
+
+        // GET LOGGED USER ORDERS
+    app.get('/all-Orders/:email', async (req,res)=>{
+      const result = await allOrdersCollection.find({email: req.params.email}).toArray();
+      res.json(result)
+    })
       
        // GET SINGLE PRODUCT
    app.get('/booking/:id', async (req,res)=>{
@@ -55,6 +61,13 @@ async function run() {
   res.json(booking);
   });
 
+  //DELETE API ORDERS
+  app.delete('/all-Orders/:id', async(req,res)=>{
+    const id     = req.params.id;
+    const query  = {_id:ObjectId(id)} ;
+    const result = await allOrdersCollection.deleteOne(query)
+    res.json(result);
+   })
  
   } finally {
     //await client.close();
