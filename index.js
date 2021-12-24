@@ -19,7 +19,7 @@ async function run() {
     await client.connect();
     const database = client.db("allevents");
     const allEventsCollection = database.collection("events");
-    const allOrdersCollection = database.collection("orders");
+    const allOrdersCollection = database.collection("allOrders");
    
    
       // GET API ORDERS
@@ -30,10 +30,21 @@ async function run() {
   
        });
 
-       app.get('/all-orders', async(req,res)=>{
+      // GET API ORDERS
+       app.get('/all-Orders', async(req,res)=>{
          const cursor = allOrdersCollection.find({})
          const orders = await cursor.toArray();
          res.send(orders)
+        console.log(orders);
+       })
+      
+     
+       //  POST ORDERS
+       app.post('/allOrders', async(req,res)=>{
+         const orders = req.body;
+         const result = await allOrdersCollection.insertOne(orders);
+         res.send(result)
+         console.log(result);
        })
       
        // GET SINGLE PRODUCT
