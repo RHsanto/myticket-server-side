@@ -61,7 +61,7 @@ async function run() {
   res.json(booking);
   });
 
-  //DELETE API ORDERS
+  //DELETE API ORDERS //
   app.delete('/all-Orders/:id', async(req,res)=>{
     const id     = req.params.id;
     const query  = {_id:ObjectId(id)} ;
